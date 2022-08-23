@@ -1,1 +1,1 @@
-{"Modules":[{"Key":"","Source":"","Dir":"."}]}
+{"Modules":[{"Key":"","Source":"","Dir":"."},{"Key":"kynatividad","Source":"git::https://github.com/ARCH-AMIS/tf_mod_az_virtual_machines.git?ref=v1.0.17","Dir":".terraform/modules/kynatividad"}]}
