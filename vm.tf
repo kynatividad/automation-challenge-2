@@ -38,4 +38,5 @@ module "kynatividad" {
       caching              = "ReadOnly"
     }
   }
+  depends_on = [azurerm_resource_group.my_rg.name]
 }
