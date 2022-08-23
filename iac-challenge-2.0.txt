@@ -1,0 +1,43 @@
+Challenge Statement: 
+Automation Challenge 2.0: 
+Many of us had successfully completed the terraform and ansible challenge last year. This time we are extending the challenge one step further and provide participants experiences through the Continuous Integration and Continuous Deployment (CI/CD) of our infrastructure as a code (IaC) maintained in GitHub. 
+This time we will focus on Azure cloud, GitHub Pull Request and CI/CD operations. Many of you may already know, Arch has developed various terraform modules in github with the intention to share among different teams and business units. These modules are developed in-house and are continuously evolved to best fit the needs of maintaining our cloud infrastructure with terraform code there by providing standard and consistent method of managing any resources in azure clouds. We suggest you go through some readings on terraform modules before starting this challenge as you will need to use one of our in-house maintained modules to build some of the azure resources. 
+Arch AMIS maintains multiple terraform modules in its github organization https://github.com/ARCH-AMIS. Each module is maintained in its own github repository following a naming standard as tf_mod_az_[module name], where module name describes an entity, resource or functionality of which terraform codes are put together in a directory. So far, we have 10 different modules and several sub modules, some of which are already being used in actual deployments; tf_mod_az_virtual_machines, tf_mod_az_storage_account, tf_mod_az_data_bricks, tf_mod_az_key_vault, tf_mod_az_networking, etc to name a few. You can see a complete list of modules at https://github.com/ARCH-AMIS. All  modules repos are internal to the ARCH-AMIS org and those who have access to the github org will be able to view these modules. 
+For this challenge, we would request you to go through tf_mod_az_virtual_machines terraform module at https://github.com/ARCH-AMIS/tf_mod_az_virtual_machines. The repository is well documented with all variables definitions that are required as inputs to the module. Like in the first challenge, you will use the “iac_challenge” repository in ARCH-AMIS to create and submit a PR for your virtual machine deployment but this time using our tf_mod_az_virtual_machines module. The repo iac_challenge has an inbuilt CI/CD workflow which helps you in checking your terraform plan and deploy your plan upon approval. As soon as you open a Pull Request, please look in to github action tab where it shows some sanity check on your terraform code and runs a terraform plan. The result of this CI run is continuously posted in your PR as a comment. You will not be able to merge the code unless your terraform checks from CI are successful and one of the reviewer approves your PR. If you are interested, please also refer to the github actions workflow code to understand steps it took to check and deploy your terraform code. Understanding this github workflow that deploys an azure resource (virtual machine) is one of the main objective of this challenge. Note that we have been using a similar approach on actual deployment of resources in azure cloud. 
+If you are struggling with technology being used in this challenge, please go through the following topics to understand the concept first. These technologies were covered in IaC Challenge 1 as well. Much of these are covered in Plural Sight trainings as well: 
+Concepts of PoIT model (organizations around a product or product family) 
+GitHub and Azure cloud platforms services 
+Basic git operations; git clone, pull, push, commit etc. Concepts of git repositories, branches and tagging. 
+How to open a Pull Request (PR) in github. PR terminologies; reviewers, assignees, merge, commits, adding reviews, resolving comments, draft PR, revert PR, close vs merge, squash merge, etc. 
+Concepts of github actions workflow, github runners, continuous integrations and continuous deployment  
+Concepts of branches and tags polices. Where to look at github for tags and changes and descriptions associated with each tag. 
+Azure Cloud Platform and services related to Computing Resources; key vault, virtual machines, images, storage accounts, etc 
+Terraform; terraform modules, variables, data, modules and resources. Understand the concept of terraform state, remote backend. 
+terraform providers and some concepts of terragrunt (terraform wrapper) 
+By now you might already have reviewed the tf_mod_az_virtual_machines modules. Even when you use the custom modules, there are still different ways to deploy virtual machines depending on your needs which we have tried to cover in the module. As all the participants will be using the same subscription, please follow on the following guidelines to stay on track to work with others and clearly identifying your resources to avoid conflicts with other participants. 
+In case of ambiguity please feel free to come up with your own solutions and suggestions, keeping the goal to deploy a virtual machine in Arch AMIS-SANDBOX-SUB subscription in Azure cloud by following only Pull Request method in github. 
+Your terraform code will be tested and deployed by github actions - CI/CD. So you do not need an access to Azure cloud for this deployment; however, access is needed to get inputs for your deployment and verify your deployment at the end. 
+Since all participants share the same subscription, use your name/username/userid wherever applicable to resolve ambiguity (example, github working directory path, virtual machine name, etc) 
+Subscription ID: 45ab905d-1e15-4871-b5ab-a3dbc9659c7b (AMIS-SANDBOX-SUB) 
+Tenant ID: 7470523d-19e4-42f5-8eef-735ef8b5c03e 
+GitHub repo: iac_challenge 
+Terraform working directory: automationchallenge2/[user name]/[product name]/ 
+You are welcome to use your own storage for the backend. However, if you wish, you can maintain your state file in the following backend too: 
+container_name       = "tfstate" 
+key  = "automationchallenge2/[user name]/[product name]/terraform.tfstate" 
+resource_group_name  = "AMIS-AUTOMATION-CHALLENGE-2" 
+storage_account_name = "amisautomationchallenge2"        
+Deploy resources in your own resource group. Name it as: AMIS-AUTOMATIONCHALLENGE-[USERNAME] 
+You are free to create your own vnets and subnets without overlapping with others, or use the following: 
+vnet = "AMIS-USE2-XVNET-IAC-CHALLENGE" 
+subnet = "AMIS-USE2-SNET01-IAC-CHALLENGE" 
+Virtual network Resource Group: AMIS-USE2-SANDBOX-IAC-CHALLENGE-RGRP00 
+Use eastus2 for location wherever it is needed. 
+For key vault to store the user credential, you can either create your own key vault or use following: 
+Key vault name: amisautomationchallenge2  
+Resource Group name: AMIS-AUTOMATION-CHALLENGE-2 
+Use terraform codes in separate files, e.g. data.tf, provider.tf etc. You can refer to the module itself to understand how the terraform codes are arranged and formatted. 
+Use the smallest possible VM size available for the VM. Currently, the subscription is not allowed to access the shared image gallery or any of the custom images. So please use the market place image of your choice to deploy the VM. 
+After your PR is merged and deployment is completed, please follow on the deployment workflow and comments posted into your PR to complete this challenge. 
+EXTRA Ansible: 
+ For those who are interested in configuration management, try creating a playbook that would install a web server (Microsoft IIS or Apache httpd). Hint: Use the terraform provisioner module to invoke the ansible playbook. Note the current CI setup may not handle this. You can use the ansible playbook separately after the VM is deployed. This may need to setup inventory of your targeted host prior to calling the playbook.
