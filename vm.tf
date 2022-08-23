@@ -15,7 +15,7 @@ module "kynatividad" {
     Entity            = "AMIS"
     AppDomain         = "Automation Challenge 2.0"
     AppDomainOwner    = "Kym Natividad"
-    Environment       = "Test"
+    Environment       = "Sandbox"
     Backup            = "Yes"
     ADDomain          = "archgroup.com"
     Application       = "Test Application"
